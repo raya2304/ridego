@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideGo - Bike Rental</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        rideorange: "#F97316",
+                        dark: "#171717",
+                        cream: "#FFF7ED",
+                        soft: "#FFEDD5",
+                        brown: "#431407"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .bike-card {
+            transition: 0.3s ease;
+        }
+
+        .bike-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .nav-link {
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #F97316;
+        }
+    </style>
+</head>
+
+<body class="bg-cream text-dark">
+
+    <!-- NAVBAR -->
+    <header class="bg-dark text-white sticky top-0 z-50 shadow-lg">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+            <a href="#" class="text-3xl font-black tracking-tight">
+                Ride<span class="text-rideorange">Go</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8 font-medium">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#bikes" class="nav-link">Bikes</a>
+                <a href="#plans" class="nav-link">Plans</a>
+                <a href="#locations" class="nav-link">Locations</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+
+            <a href="#booking"
+               class="hidden md:block bg-rideorange hover:bg-orange-600 px-5 py-2.5 rounded-full font-bold transition">
+                Book a Ride
+            </a>
+
+            <button id="menuBtn" class="md:hidden text-2xl">
+                ☰
+            </button>
+        </nav>
+
+        <!-- MOBILE MENU -->
+        <div id="mobileMenu" class="hidden md:hidden px-6 pb-5">
+            <a href="#home" class="block py-2">Home</a>
+            <a href="#bikes" class="block py-2">Bikes</a>
+            <a href="#plans" class="block py-2">Plans</a>
+            <a href="#locations" class="block py-2">Locations</a>
+            <a href="#reviews" class="block py-2">Reviews</a>
+            <a href="#contact" class="block py-2">Contact</a>
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+    <section id="home" class="bg-dark text-white">
+        <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+
+            <div>
+                <p class="text-rideorange uppercase tracking-[4px] font-bold mb-4">
+                    Premium Bike Rentals
+                </p>
+
+                <h1 class="text-5xl md:text-7xl font-black leading-tight">
+                    Ride More.<br>
+                    <span class="text-rideorange">Explore More.</span>
+                </h1>
+
+                <p class="text-gray-300 text-lg mt-6 max-w-xl leading-8">
+                    Discover the freedom of two wheels with reliable bikes,
+                    flexible rental plans and convenient pickup locations.
+                    Choose your ride and start your journey today.
+                </p>
+
+                <div class="flex flex-wrap gap-4 mt-8">
+                    <a href="#bikes"
+                       class="bg-rideorange hover:bg-orange-600 px-7 py-3 rounded-full font-bold transition">
+                        Explore Bikes
+                    </a>
+
+                    <a href="#booking"
+                       class="border border-white hover:bg-white hover:text-dark px-7 py-3 rounded-full font-bold transition">
+                        Book a Ride
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-3 gap-5 mt-12 max-w-lg">
+                    <div>
+                        <h3 class="text-3xl font-black text-rideorange">500+</h3>
+                        <p class="text-gray-400 text-sm">Bikes</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-black text-rideorange">12+</h3>
+                        <p class="text-gray-400 text-sm">Locations</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-3xl font-black text-rideorange">10K+</h3>
+                        <p class="text-gray-400 text-sm">Riders</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -inset-5 border-2 border-rideorange rounded-[40px] rotate-3"></div>
+
+                <img
+                    src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1000&q=80"
+                    alt="Bike"
+                    class="relative w-full h-[450px] object-cover rounded-[35px] shadow-2xl">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- QUICK BOOKING -->
+    <section id="booking" class="max-w-6xl mx-auto px-6 -mt-8 relative z-10">
+        <div class="bg-white rounded-3xl shadow-2xl p-7 border border-orange-100">
+
+            <div class="mb-6">
+                <p class="text-rideorange font-bold uppercase text-sm tracking-widest">
+                    Quick Booking
+                </p>
+                <h2 class="text-3xl font-black mt-1">Find Your Ride</h2>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-4">
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Pickup Location</label>
+                    <select id="location" class="w-full border rounded-xl p-3 outline-none focus:border-rideorange">
+                        <option>Chennai</option>
+                        <option>Bangalore</option>
+                        <option>Hyderabad</option>
+                        <option>Coimbatore</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Bike Type</label>
+                    <select id="bikeType" class="w-full border rounded-xl p-3 outline-none focus:border-rideorange">
+                        <option value="299">City Bike</option>
+                        <option value="499">Mountain Bike</option>
+                        <option value="599">Road Bike</option>
+                        <option value="699">Electric Bike</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Pickup Date</label>
+                    <input type="date" class="w-full border rounded-xl p-3 outline-none focus:border-rideorange">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-bold mb-2">Days</label>
+                    <input id="days" type="number" min="1" value="1"
+                           class="w-full border rounded-xl p-3 outline-none focus:border-rideorange">
+                </div>
+
+                <button onclick="calculateBooking()"
+                        class="bg-rideorange hover:bg-orange-600 text-white rounded-xl font-bold px-5 transition">
+                    Check Price
+                </button>
+            </div>
+
+            <p id="bookingResult" class="mt-5 font-bold text-green-700"></p>
+        </div>
+    </section>
+
+
+    <!-- CATEGORIES -->
+    <section class="max-w-7xl mx-auto px-6 py-20">
+
+        <div class="text-center mb-12">
+            <p class="text-rideorange font-bold uppercase tracking-widest">
+                Find Your Style
+            </p>
+
+            <h2 class="text-4xl md:text-5xl font-black mt-2">
+                Choose Your Perfect Ride
+            </h2>
+
+            <p class="text-gray-600 mt-4">
+                From everyday city rides to adventurous weekend trails.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-5">
+
+            <div class="bg-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">🚲</div>
+                <h3 class="font-black">City</h3>
+                <p class="text-gray-500 text-sm mt-2">Easy everyday rides</p>
+            </div>
+
+            <div class="bg-dark text-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">⛰️</div>
+                <h3 class="font-black">Mountain</h3>
+                <p class="text-gray-400 text-sm mt-2">Built for trails</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">🏁</div>
+                <h3 class="font-black">Road</h3>
+                <p class="text-gray-500 text-sm mt-2">Fast & lightweight</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">⚡</div>
+                <h3 class="font-black">Electric</h3>
+                <p class="text-gray-500 text-sm mt-2">Effortless rides</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">🔧</div>
+                <h3 class="font-black">Hybrid</h3>
+                <p class="text-gray-500 text-sm mt-2">Comfort & speed</p>
+            </div>
+
+            <div class="bg-rideorange text-white p-6 rounded-2xl text-center shadow hover:shadow-xl transition">
+                <div class="text-4xl mb-4">🔥</div>
+                <h3 class="font-black">Premium</h3>
+                <p class="text-orange-100 text-sm mt-2">High performance</p>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- BIKES -->
+    <section id="bikes" class="bg-white py-20">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="flex flex-col md:flex-row justify-between md:items-end gap-5 mb-12">
+
+                <div>
+                    <p class="text-rideorange font-bold uppercase tracking-widest">
+                        Our Collection
+                    </p>
+
+                    <h2 class="text-4xl md:text-5xl font-black mt-2">
+                        Featured Bikes
+                    </h2>
+
+                    <p class="text-gray-600 mt-3">
+                        Choose a bike that matches your journey.
+                    </p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterBikes('all')" class="filter-btn bg-dark text-white px-4 py-2 rounded-full">
+                        All
+                    </button>
+                    <button onclick="filterBikes('city')" class="filter-btn border px-4 py-2 rounded-full">
+                        City
+                    </button>
+                    <button onclick="filterBikes('mountain')" class="filter-btn border px-4 py-2 rounded-full">
+                        Mountain
+                    </button>
+                    <button onclick="filterBikes('road')" class="filter-btn border px-4 py-2 rounded-full">
+                        Road
+                    </button>
+                    <button onclick="filterBikes('electric')" class="filter-btn border px-4 py-2 rounded-full">
+                        Electric
+                    </button>
+                </div>
+            </div>
+
+
+            <div id="bikeGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- BIKE 1 -->
+                <div class="bike-card bike-item city bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="Urban Cruiser">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                CITY
+                            </span>
+                            <span class="text-rideorange">★★★★★</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">Urban Cruiser</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Comfortable city bike for everyday commuting.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>7 Speed</span>
+                            <span>Disc Brake</span>
+                            <span>Alloy</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹299 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('Urban Cruiser')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BIKE 2 -->
+                <div class="bike-card bike-item mountain bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="Trail Explorer">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                MOUNTAIN
+                            </span>
+                            <span class="text-rideorange">★★★★★</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">Trail Explorer</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Designed for adventurous trails and rough terrain.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>21 Speed</span>
+                            <span>Suspension</span>
+                            <span>Disc Brake</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹499 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('Trail Explorer')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BIKE 3 -->
+                <div class="bike-card bike-item road bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1502744688674-c619d1586c9e?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="Speedster Pro">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                ROAD
+                            </span>
+                            <span class="text-rideorange">★★★★★</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">Speedster Pro</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Lightweight road bike for long-distance riders.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>18 Speed</span>
+                            <span>Carbon</span>
+                            <span>9.5 kg</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹599 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('Speedster Pro')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BIKE 4 -->
+                <div class="bike-card bike-item electric bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="Volt E-Bike">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                ELECTRIC
+                            </span>
+                            <span class="text-rideorange">★★★★★</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">Volt E-Bike</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Smooth electric assistance for city exploration.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>60 km</span>
+                            <span>500 Wh</span>
+                            <span>Assist</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹699 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('Volt E-Bike')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BIKE 5 -->
+                <div class="bike-card bike-item city bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="City Lite">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                CITY
+                            </span>
+                            <span class="text-rideorange">★★★★☆</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">City Lite</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Simple, lightweight and perfect for short trips.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>6 Speed</span>
+                            <span>V-Brake</span>
+                            <span>Lightweight</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹249 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('City Lite')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- BIKE 6 -->
+                <div class="bike-card bike-item mountain bg-cream rounded-3xl overflow-hidden shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?auto=format&fit=crop&w=800&q=80"
+                         class="w-full h-60 object-cover"
+                         alt="Adventure X">
+
+                    <div class="p-6">
+                        <div class="flex justify-between">
+                            <span class="bg-soft text-brown px-3 py-1 rounded-full text-xs font-bold">
+                                MOUNTAIN
+                            </span>
+                            <span class="text-rideorange">★★★★★</span>
+                        </div>
+
+                        <h3 class="text-2xl font-black mt-4">Adventure X</h3>
+
+                        <p class="text-gray-600 mt-2">
+                            Tough and dependable for your weekend adventures.
+                        </p>
+
+                        <div class="grid grid-cols-3 text-sm mt-5 border-y py-4">
+                            <span>24 Speed</span>
+                            <span>Full Suspension</span>
+                            <span>Alloy</span>
+                        </div>
+
+                        <div class="flex justify-between items-center mt-5">
+                            <p class="font-black text-2xl">₹549 <span class="text-sm font-normal">/day</span></p>
+
+                            <button onclick="rentBike('Adventure X')"
+                                    class="bg-dark text-white px-5 py-2 rounded-full hover:bg-rideorange transition">
+                                Rent Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PLANS -->
+    <section id="plans" class="py-20 bg-dark text-white">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <div class="text-center mb-12">
+                <p class="text-rideorange font-bold uppercase tracking-widest">
+                    Flexible Pricing
+                </p>
+
+                <h2 class="text-4xl md:text-5xl font-black mt-2">
+                    Rental Plans
+                </h2>
+
+                <p class="text-gray-400 mt-4">
+                    Choose a plan that fits your journey.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+
+                <div class="bg-white text-dark rounded-3xl p-8">
+                    <p class="text-rideorange font-bold">HOURLY RIDE</p>
+                    <h3 class="text-3xl font-black mt-4">₹99<span class="text-base">/hour</span></h3>
+
+                    <ul class="space-y-4 mt-7 text-gray-600">
+                        <li>✓ Flexible duration</li>
+                        <li>✓ Helmet included</li>
+                        <li>✓ Basic maintenance</li>
+                        <li>✓ Easy pickup</li>
+                    </ul>
+
+                    <button onclick="rentBike('Hourly Ride')"
+                            class="w-full mt-8 bg-dark text-white py-3 rounded-xl font-bold hover:bg-rideorange transition">
+                        Choose Plan
+                    </button>
+                </div>
+
+
+                <div class="bg-rideorange rounded-3xl p-8 transform md:-translate-y-4">
+                    <p class="font-bold">DAILY RIDE</p>
+                    <h3 class="text-3xl font-black mt-4">₹299<span class="text-base">/day</span></h3>
+
+                    <ul class="space-y-4 mt-7">
+                        <li>✓ 24-hour rental</li>
+                        <li>✓ Helmet included</li>
+                        <li>✓ Roadside assistance</li>
+                        <li>✓ Easy pickup</li>
+                    </ul>
+
+                    <button onclick="rentBike('Daily Ride')"
+                            class="w-full mt-8 bg-dark text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition">
+                        Choose Plan
+                    </button>
+                </div>
+
+
+                <div class="bg-white text-dark rounded-3xl p-8">
+                    <p class="text-rideorange font-bold">WEEKLY EXPLORER</p>
+                    <h3 class="text-3xl font-black mt-4">₹1,499<span class="text-base">/week</span></h3>
+
+                    <ul class="space-y-4 mt-7 text-gray-600">
+                        <li>✓ 7-day rental</li>
+                        <li>✓ Free maintenance</li>
+                        <li>✓ Flexible pickup</li>
+                        <li>✓ Roadside assistance</li>
+                    </ul>
+
+                    <button onclick="rentBike('Weekly Explorer')"
+                            class="w-full mt-8 bg-dark text-white py-3 rounded-xl font-bold hover:bg-rideorange transition">
+                        Choose Plan
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- WHY CHOOSE US -->
+    <section class="py-20 max-w-7xl mx-auto px-6">
+
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+            <div>
+
